@@ -1,0 +1,24 @@
+version: '2'
+
+services:
+
+  tomcat:
+    container_name: tomcat-7-jre7
+    image: tomcat/tomcat:7-jre7
+    build: ./tomcat-7-jre7
+    restart: always
+    ports:
+      - "8080:8080"
+    environment:
+      JAVA_OPTS: "-Dfile.encoding=UTF-8 \
+        -Xms1536m \
+        -Xmx2048m  \
+        -XX:PermSize=512m  \
+        -XX:MaxPermSize=512m \
+        -XX:NewSize=512m \
+        -XX:MaxNewSize=512m \
+        -Dserver.home=/usr/local/tomcat \
+        -Dprops.path=/usr/local/tomcat/conf \
+        -DenableLogger=/usr/local/tomcat/conf"
+    volumes:
+      - /tomcat-storage/logs:/usr/local/tomcat/logs
